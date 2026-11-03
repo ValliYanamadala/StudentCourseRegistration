@@ -15,7 +15,7 @@ def get_db():
     return conn
 
 
-# Create database tables and sample courses
+# Initialize database
 def init_db():
     conn = get_db()
 
@@ -93,9 +93,9 @@ def index():
             ).fetchone()
 
             student_id = student["id"]
+
             flash("Student registered successfully!")
 
-            conn.close()
             return redirect(url_for(
                 "courses", student_id=student_id
             ))
@@ -109,7 +109,7 @@ def index():
     return render_template("index.html")
 
 
-# Display available courses
+# Display and search available courses
 @app.route("/courses/<int:student_id>")
 def courses(student_id):
 
@@ -124,9 +124,21 @@ def courses(student_id):
         conn.close()
         return "Student not found", 404
 
-    all_courses = conn.execute(
-        "SELECT * FROM courses"
-    ).fetchall()
+    search_term = request.args.get("search", "").strip()
+
+    if search_term:
+        all_courses = conn.execute("""
+            SELECT * FROM courses
+            WHERE course_name LIKE ? OR instructor LIKE ?
+        """, (
+            f"%{search_term}%",
+            f"%{search_term}%"
+        )).fetchall()
+
+    else:
+        all_courses = conn.execute(
+            "SELECT * FROM courses"
+        ).fetchall()
 
     enrolled = conn.execute(
         "SELECT course_id FROM enrollments WHERE student_id = ?",
@@ -141,7 +153,8 @@ def courses(student_id):
         "courses.html",
         student=student,
         courses=all_courses,
-        enrolled_ids=enrolled_ids
+        enrolled_ids=enrolled_ids,
+        search_term=search_term
     )
 
 

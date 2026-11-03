@@ -1,4 +1,6 @@
 
+/* General Styling */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +13,9 @@ body {
     color: #1e293b;
 }
 
+
+/* Navigation Bar */
+
 nav {
     background: #0f172a;
     color: white;
@@ -20,10 +25,17 @@ nav {
     align-items: center;
 }
 
+nav h2 {
+    color: white;
+}
+
 nav a {
     color: white;
     text-decoration: none;
 }
+
+
+/* Main Container */
 
 .container {
     width: 85%;
@@ -31,21 +43,32 @@ nav a {
     margin: 45px auto;
 }
 
+.container > h1 {
+    color: #1e40af;
+    margin-bottom: 12px;
+}
+
+
+/* Welcome Section */
+
 .welcome {
     text-align: center;
     margin-bottom: 35px;
 }
 
-.welcome h1, .container > h1 {
+.welcome h1 {
     color: #1e40af;
     margin-bottom: 12px;
 }
+
+
+/* Cards */
 
 .card {
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
 }
 
 .container > .card {
@@ -62,6 +85,9 @@ nav a {
     margin-bottom: 12px;
 }
 
+
+/* Registration Form */
+
 label {
     display: block;
     margin: 15px 0 7px;
@@ -73,6 +99,9 @@ input {
     border: 1px solid #cbd5e1;
     border-radius: 7px;
 }
+
+
+/* Buttons */
 
 button {
     background: #2563eb;
@@ -93,21 +122,74 @@ button:disabled {
     cursor: not-allowed;
 }
 
+
+/* Course Grid */
+
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(240px, 1fr)
+    );
     gap: 22px;
     margin-top: 25px;
 }
+
+
+/* Course Search */
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    max-width: 600px;
+    margin: 25px 0;
+    align-items: center;
+}
+
+.search-form input {
+    flex: 1;
+}
+
+.search-form button {
+    margin-top: 0;
+}
+
+.clear-link {
+    color: #2563eb;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.clear-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Delete Button */
 
 .delete-btn {
     background: #dc2626;
 }
 
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* Messages */
+
 .message {
     color: #047857;
     margin: 15px 0;
 }
+
+.no-results {
+    color: #64748b;
+    margin-top: 20px;
+}
+
+
+/* Navigation Links */
 
 .back-link {
     display: inline-block;
@@ -116,18 +198,37 @@ button:disabled {
     text-decoration: none;
 }
 
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Footer */
+
 footer {
     text-align: center;
     padding: 25px;
     color: #64748b;
 }
 
+
+/* Responsive Design */
+
 @media (max-width: 600px) {
+
     .container {
         width: 92%;
     }
 
     nav {
         padding: 18px 5%;
+    }
+
+    .search-form {
+        flex-wrap: wrap;
+    }
+
+    .search-form input {
+        min-width: 100%;
     }
 }
