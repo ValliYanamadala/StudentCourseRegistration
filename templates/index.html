@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Course Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h2>Campus Courses</h2>
+    <span>Student Portal</span>
+</nav>
+
+<div class="container">
+    <div class="welcome">
+        <h1>Online Student Course Registration</h1>
+        <p>Register yourself and explore courses offered by our university.</p>
+    </div>
+
+    <div class="card">
+        <h2>Student Registration</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+
+            <button type="submit">Register & Explore Courses</button>
+        </form>
+    </div>
+</div>
+
+<footer>© 2026 Campus Courses | Student Portal</footer>
+
+</body>
+</html>

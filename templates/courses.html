@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Courses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h2>Campus Courses</h2>
+    <a href="{{ url_for('my_courses', student_id=student.id) }}">My Courses</a>
+</nav>
+
+<div class="container">
+    <h1>Available Courses</h1>
+    <p>Welcome, {{ student.name }}!</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <div class="course-grid">
+        {% for course in courses %}
+        <div class="card">
+            <h2>{{ course.course_name }}</h2>
+            <p><strong>Instructor:</strong> {{ course.instructor }}</p>
+            <p><strong>Duration:</strong> {{ course.duration }}</p>
+
+            {% if course.id in enrolled_ids %}
+                <button disabled>Already Enrolled</button>
+            {% else %}
+                <form method="POST"
+                      action="{{ url_for('enroll', student_id=student.id, course_id=course.id) }}">
+                    <button type="submit">Enroll Now</button>
+                </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <a class="back-link" href="{{ url_for('my_courses', student_id=student.id) }}">
+        View My Registered Courses →
+    </a>
+</div>
+
+</body>
+</html>

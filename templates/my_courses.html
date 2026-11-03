@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Registered Courses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h2>Campus Courses</h2>
+    <a href="{{ url_for('courses', student_id=student.id) }}">Browse Courses</a>
+</nav>
+
+<div class="container">
+    <h1>My Registered Courses</h1>
+    <p>Student: {{ student.name }}</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    {% if courses %}
+        <div class="course-grid">
+            {% for course in courses %}
+                <div class="card">
+                    <h2>{{ course.course_name }}</h2>
+                    <p>Instructor: {{ course.instructor }}</p>
+                    <p>Duration: {{ course.duration }}</p>
+
+                    <form method="POST"
+                          action="{{ url_for('drop_course', student_id=student.id, course_id=course.id) }}">
+                        <button class="delete-btn" type="submit">Drop Course</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't registered for any courses yet.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
